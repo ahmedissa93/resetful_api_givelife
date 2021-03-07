@@ -21,7 +21,9 @@ exports.login = (req, res) => {
             message:
               err.message || "Some error occurred while login."
           });
-        else res.send({'data':data,'status':200});
+
+        else
+        res.send({'data':data,'status':200});
       });
   // };
 };
