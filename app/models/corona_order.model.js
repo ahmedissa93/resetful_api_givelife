@@ -19,4 +19,59 @@ Order.add = (newOrder, result) => {
     result(null, { id: res.insertId, ...newOrder });
   });
 };
+//get all order
+Order.getAll = result => {
+  sql.query("SELECT users.id , corona_orders.id as order_id ,name , age , phone , national_id , status  FROM corona_orders join users on users.id = corona_orders.user_id", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("customers: ", res);
+    result(null, res);
+  });
+};
+Order.updateById = (id, order, result) => {
+  console.log(order);
+  sql.query(
+    "UPDATE corona_orders SET status = ? WHERE id = ?",
+    [order.status, id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found Customer with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated order status: ", { id: id, ...order });
+      result(null, { id: id, ...order });
+    }
+  );
+};
+
+Order.remove = (id, result) => {
+  sql.query("DELETE FROM corona_orders WHERE id = ?", id, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    if (res.affectedRows == 0) {
+      // not found Customer with the id
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    console.log("deleted order with id: ", id);
+    result(null, res);
+  });
+};
 module.exports = Order;
