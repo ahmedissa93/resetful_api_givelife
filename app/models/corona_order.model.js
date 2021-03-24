@@ -28,7 +28,7 @@ Order.getAll = result => {
       return;
     }
 
-    console.log("customers: ", res);
+    
     result(null, res);
   });
 };

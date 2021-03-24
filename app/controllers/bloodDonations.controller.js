@@ -99,3 +99,25 @@ exports.delete = (req, res) => {
     } else res.send({ message: `Customer was deleted successfully!` });
   });
 };
+// Retrieve all Order from the database.
+exports.statistics_count = (req, res) => {
+  BloodDonations.statistics_count((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving bloodDonations."
+      });
+    else res.send({'data':data[0],'status':200});
+  });
+};
+// Retrieve all Order from the database.
+exports.statisticsTopDonation = (req, res) => {
+  BloodDonations.statisticsTopDonation((err, data) => {
+    if (err)
+      res.status(500).send({
+        message:
+          err.message || "Some error occurred while retrieving bloodDonations."
+      });
+    else res.send({'data':data,'status':200});
+  });
+};

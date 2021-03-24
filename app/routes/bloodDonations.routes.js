@@ -15,4 +15,10 @@ module.exports = app => {
   // Delete a Order with orderId
   app.delete("/blood_donations/:orderId", bloodDonations.delete);
 
+  // Retrieve statistics_count
+  app.get("/statistics_count", bloodDonations.statistics_count);
+
+  // Retrieve statisticsTopDonation
+
+  app.get("/statisticsTopDonation", bloodDonations.statisticsTopDonation);
 };

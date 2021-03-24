@@ -75,4 +75,31 @@ BloodDonations.remove = (id, result) => {
     result(null, res);
   });
 };
+//get all order
+BloodDonations.statistics_count = result => {
+  sql.query("SELECT COUNT(*) as count_donations FROM bloodـdonations", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("statistics: ", res);
+    result(null, res);
+  });
+};
+
+//get all order
+BloodDonations.statisticsTopDonation = result => {
+  sql.query("SELECT COUNT(bloodـdonations.user_id) as count_donations , bloodـdonations.blood_type , users.name  FROM bloodـdonations join users on users.id = bloodـdonations.user_id GROUP BY bloodـdonations.user_id", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("statistics: ", res);
+    result(null, res);
+  });
+};
 module.exports = BloodDonations;
