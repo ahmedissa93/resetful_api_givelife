@@ -13,7 +13,8 @@ exports.add = (req, res) => {
   const order = new Order({
     user_id: req.body.user_id,
     hospital_id: req.body.hospital_id,
-    location: req.body.location,
+    longitude: req.body.location.longitude,
+    latitude: req.body.location.latitude,
     status:"pending"
   });
   // Save User in the database
@@ -39,7 +40,7 @@ exports.findAll = (req, res) => {
 };
 // Find a single Order with a orderId
 exports.findOne = (req, res) => {
-  Order.findById(req.params.orderId, (err, data) => {
+  Order.findByUserId(req.params.userId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -50,7 +51,7 @@ exports.findOne = (req, res) => {
           message: "Error retrieving Order with id " + req.params.orderId
         });
       }
-    } else res.send(data);
+    } else res.send({'data':data,'status':200});
   });
 };
 // Update a Order Status identified by the orderId in the request

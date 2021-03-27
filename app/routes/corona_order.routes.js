@@ -7,7 +7,7 @@ module.exports = app => {
   app.get("/corona_orders", orders.findAll);
 
   // Retrieve a single Order with orderId
-  app.get("/corona_orders/:orderId", orders.findOne);
+  app.get("/corona_orders/:userId", orders.findOne);
 
   // Update a Customer with orderId
   app.put("/corona_orders/:orderId", orders.update);

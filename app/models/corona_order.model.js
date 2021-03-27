@@ -3,7 +3,8 @@ const sql = require("./dbConnection.js");
 const Order = function(order) {
   this.user_id = order.user_id;
   this.hospital_id = order.hospital_id;
-  this.location = order.location;
+  this.longitude = order.longitude;
+  this.latitude = order.latitude;
   this.status = order.status;
 };
 //new order
@@ -76,6 +77,24 @@ Order.remove = (id, result) => {
 };
 Order.findByAllId = (id, result) => {
   sql.query("SELECT users.id , corona_orders.id as order_id ,name , age , phone , national_id , status  FROM corona_orders join users on users.id = corona_orders.user_id WHERE corona_orders.hospital_id = ?", id, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    if (res.affectedRows == 0) {
+      // not found Customer with the id
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    console.log("successful order with id: ", id);
+    result(null, res);
+  });
+};
+Order.findByUserId = (id, result) => {
+  sql.query("SELECT users.id , corona_orders.id as order_id ,name , age , phone , national_id , status  FROM corona_orders join users on users.id = corona_orders.user_id WHERE corona_orders.user_id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
