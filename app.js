@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var router = express.Router()
 
 const app = express();
+
 app.use(session({
     cookie: { maxAge: 60000 },
     store: new session.MemoryStore,
@@ -24,6 +25,13 @@ app.use(bodyParser.json());
 
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
+
+//api
+require("./app/routes/user.routes.js")(app);
+require("./app/routes/corona_order.routes.js")(app);
+require("./app/routes/bloodDonations.routes.js")(app);
+
+
 // Static Files
 // app.use(express.static('public'))
 app.use('/css', express.static(__dirname + '/app/public/css'))// Example for other folders - not required
@@ -103,10 +111,7 @@ app.use(cookieParser())
 app.use('/', router);
 
 
-//api
-require("./app/routes/user.routes.js")(app);
-require("./app/routes/corona_order.routes.js")(app);
-require("./app/routes/bloodDonations.routes.js")(app);
+
 
 // set port, listen for requests
 app.listen(3000,'192.168.100.6');
