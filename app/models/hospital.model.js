@@ -93,8 +93,19 @@ hospitals.register = (newhowpitcal, result) => {
       return;
     }
 
-    console.log("created hospitals: ", { id: res.insertId, ...newhowpitcal });
-    result(null, { id: res.insertId, ...newhowpitcal });
+    console.log("created hospitals: ", { id: res.insertId, ...newHospital });
+    result(null, { id: res.insertId, ...newHospital });
+  });
+};
+
+hospitals.getAll = (result)  => {
+  sql.query("SELECT * from hospitals where isAdmin !=1 order By id DESC", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+    result(null, res);
   });
 };
 module.exports = hospitals;

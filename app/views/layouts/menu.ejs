@@ -6,25 +6,39 @@
   <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
   <ul class="navbar-nav px-3">
     <li class="nav-item text-nowrap">
-      <a class="nav-link" href="#">Sign out</a>
+      <a class="nav-link" href="/logout">Sign out</a>
     </li>
   </ul>
 </header>
 
 <div class="container-fluid">
+
   <div class="row">
     <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
+      <span style="text-align: center;
+    margin-right: 34px;
+    margin-bottom: 28px;
+    color: red;">اهلا بك <%= user %></span>
       <div class="position-sticky pt-3">
         <ul class="nav flex-column">
+          <% if (isAdmin) { %>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/corona_order_web">
-              <span data-feather="home"></span>
+            <a class="nav-link" aria-current="page" href="/hospital">
+            <i class="bi bi-building"></i>
+               hospitals
+            </a>
+          </li>
+          <% } %>
+
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/corona_order_web">
+            <i class="bi bi-file-earmark-fill"></i>
               طلبات فحص كورونا
             </a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/bloodDonations">
-              <span data-feather="file"></span>
+              <i class="bi bi-patch-exclamation"></i>
               طلبات التبرع
             </a>
           </li>

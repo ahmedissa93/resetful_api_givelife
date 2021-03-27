@@ -102,4 +102,18 @@ BloodDonations.statisticsTopDonation = result => {
     result(null, res);
   });
 };
+
+//get all order
+BloodDonations.findByAllId = (id,result) => {
+  sql.query("SELECT users.id , bloodـdonations.id as order_id ,bloodـdonations.blood_type,bloodـdonations.date,bloodـdonations.time ,name , age , phone , national_id  FROM bloodـdonations join users on users.id = bloodـdonations.user_id WHERE bloodـdonations.hospital_id = ? ",id, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    console.log("BloodDonations: ", res);
+    result(null, res);
+  });
+};
 module.exports = BloodDonations;

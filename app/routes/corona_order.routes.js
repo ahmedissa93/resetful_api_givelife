@@ -3,7 +3,7 @@ module.exports = app => {
   // create New Order
   app.post("/corona_order/add", orders.add);
 
-  // Retrieve all Order 
+  // Retrieve all Order
   app.get("/corona_orders", orders.findAll);
 
   // Retrieve a single Order with orderId

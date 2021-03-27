@@ -1,6 +1,11 @@
 <%- include('./layouts/header.ejs') %>
 <%- include('./layouts/menu.ejs') %>
+
 <div class="card mt-5" style="width: 100%;">
+
+  <% if (messages.success) { %>
+      <div class="alert alert-success" role="alert"><%- messages.success %></div>
+  <% } %>
   <div class="card-header">
     طلبات كورونا
   </div>
@@ -33,7 +38,11 @@
                   <span class="btn btn-warning"><%= data[i].status%></span>
                 <%}%>
               </td>
-              <td><i class="fas fa-edit"></i></td>
+              <td>
+                <% if(data[i].status == 'pending'){%>
+                  <a href="/corona_order_web/approve/<%=data[i].order_id%>" onclick="return alert('Are You sure?')"><i class="bi bi-pencil-square"></i></a>
+                <%}%>
+              </td>
           </tr>
       <% } %>
 

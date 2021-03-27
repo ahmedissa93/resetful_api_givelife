@@ -1,0 +1,41 @@
+<%- include('./layouts/header.ejs') %>
+<%- include('./layouts/menu.ejs') %>
+<div class="card mt-5" style="width: 100%;">
+  <div class="card-header">
+      اضافة مستشفئ
+  </div>
+  <% if (messages.success) { %>
+      <div class="alert alert-success" role="alert"><%- messages.success %></div>
+  <% } %>
+  <form class="form-signin" method="post" action="/hospital/store_hospital">
+    <div class="row mt-5 ml-3 mr-3">
+
+      <div class="form-group col-md-4">
+        <label for="inputEmail">Email address</label>
+        <input type="email" name="email" id="inputEmail" class="form-control" placeholder="Email" required autofocus>
+      </div>
+
+        <div class="form-group col-md-4">
+          <label for="inputEmail">user name</label>
+          <input type="text" name="user_name" id="inputEmail" class="form-control" placeholder="user name" required autofocus>
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputEmail" >name</label>
+          <input type="text" name="name" id="inputEmail" class="form-control" placeholder="name" required autofocus>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputEmail" >Phone</label>
+          <input type="text" name="phone" id="inputEmail" class="form-control" placeholder="phone" required autofocus>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputPassword">Password</label>
+          <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+        </div>
+      </div>
+      <div class="form-group col-md-2 mr-3 ml-3">
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Add</button>
+      </div>
+  </form>
+
+</div>
+<%- include('./layouts/footer.ejs') %>
