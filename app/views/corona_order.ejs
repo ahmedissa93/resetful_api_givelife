@@ -9,6 +9,7 @@
   <div class="card-header">
     طلبات كورونا
   </div>
+  <% var test = data; %>
   <table class="table">
     <thead>
       <tr>
@@ -16,6 +17,7 @@
         <th scope="col">الاسم</th>
         <th scope="col"> رقم الهوية</th>
         <th scope="col"> العمر</th>
+        <th scope="col">حالة الطلب</th>
         <th scope="col">حالة الطلب</th>
         <th scope="col"> الاجراءات</th>
       </tr>
@@ -39,6 +41,10 @@
                 <%}%>
               </td>
               <td>
+                <div id="map"  class="map">
+                </div>
+              </td>
+              <td>
                 <% if(data[i].status == 'pending'){%>
                   <a href="/corona_order_web/approve/<%=data[i].order_id%>" onclick="return alert('Are You sure?')"><i class="bi bi-pencil-square"></i></a>
                 <%}%>
@@ -51,3 +57,23 @@
 </div>
 
 <%- include('./layouts/footer.ejs') %>
+<script>
+// var getData = JSON.parse(<%= data %>);
+// console.log(getData);
+function initMap() {
+        const myLatLng = { lat: -25.363, lng: 131.044 };
+        const map = new google.maps.Map(document.getElementById("map"), {
+          zoom: 4,
+          center: myLatLng,
+        });
+        new google.maps.Marker({
+          position: myLatLng,
+          map,
+          title: "Hello World!",
+        });
+      }
+</script>
+<script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnBBjq7WgxBQyvEbWy_FUp351mX9yP_ho&callback=initMap&libraries=&v=weekly"
+      async
+></script>

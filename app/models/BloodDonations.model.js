@@ -91,7 +91,7 @@ BloodDonations.statistics_count = result => {
 
 //get all order
 BloodDonations.statisticsTopDonation = result => {
-  sql.query("SELECT COUNT(bloodـdonations.user_id) as count_donations , bloodـdonations.blood_type , users.name  FROM bloodـdonations join users on users.id = bloodـdonations.user_id GROUP BY bloodـdonations.user_id", (err, res) => {
+  sql.query("SELECT COUNT(bloodـdonations.user_id) as count_donations , bloodـdonations.blood_type , users.name  FROM bloodـdonations join users on users.id = bloodـdonations.user_id GROUP BY bloodـdonations.user_id order by count_donations DESC", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

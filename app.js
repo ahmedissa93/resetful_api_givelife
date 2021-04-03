@@ -15,7 +15,11 @@ app.use(session({
     resave: true,
     secret: 'secret'
 }))
-
+app.use(function (req, res, next) {
+    res.locals.user = req.session.username;
+    res.locals.isAdmin = req.session.isAdmin;
+    next();
+});
 app.use(flash());
 // catch 404 and forward to error handler
 
@@ -30,6 +34,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require("./app/routes/user.routes.js")(app);
 require("./app/routes/corona_order.routes.js")(app);
 require("./app/routes/bloodDonations.routes.js")(app);
+require("./app/routes/hospitalsAPI.routes.js")(app);
+require("./app/routes/donorAPI.routes.js")(app);
 
 
 // Static Files
@@ -55,11 +61,11 @@ router.use(function (req, res, next) {
       next();
   }
 });
-app.use(function (req, res, next) {
-    res.locals.user = req.session.username;
-    res.locals.isAdmin = req.session.isAdmin;
-    next();
-});
+// app.use(function (req, res, next) {
+//     res.locals.user = req.session.username;
+//     res.locals.isAdmin = req.session.isAdmin;
+//     next();
+// });
 // function isAuthenticated(req, res, next) {
 //   console.log(req.session.username);
 //   // if(req.session.username == null || req.session.username == undefined){
@@ -91,8 +97,10 @@ router.get('/logout',(req,res) => {
 var coronaOrderRouter = require('./app/routes/coronaOrderWeb');
 var bloodDonationWebRouter = require('./app/routes/bloodDonationWeb');
 var hospitalWebRouter = require('./app/routes/hospital.routes');
+var donorsWebRouter = require('./app/routes/donorWeb.routes');
 router.use('/corona_order_web',coronaOrderRouter);
 router.use('/bloodDonations',bloodDonationWebRouter);
+router.use('/getDonors',donorsWebRouter);
 app.use('/hospital', hospitalWebRouter);
 // error handler
 app.use(function(err, req, res, next) {

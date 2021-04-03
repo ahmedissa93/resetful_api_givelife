@@ -2,6 +2,7 @@ const sql = require("./dbConnection.js");
 // constructor
 const hospitals = function(hospital) {
   this.name = hospital.name;
+  this.name_en = hospital.name_en;
   this.user_name = hospital.user_name;
   this.email = hospital.email;
   this.password = hospital.password;
@@ -100,6 +101,16 @@ hospitals.register = (newhowpitcal, result) => {
 
 hospitals.getAll = (result)  => {
   sql.query("SELECT * from hospitals where isAdmin !=1 order By id DESC", (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+    result(null, res);
+  });
+};
+hospitals.getHospitals = (result)  => {
+  sql.query("SELECT id,name_en from hospitals where isAdmin !=1 order By id DESC", (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);

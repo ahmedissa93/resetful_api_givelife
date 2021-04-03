@@ -1,0 +1,52 @@
+<%- include('./layouts/header.ejs') %>
+<%- include('./layouts/menu.ejs') %>
+<div class="card mt-5" style="width: 100%;">
+  <div class="card-header">
+    Donors List
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">الاسم</th>
+        <th scope="col">رقم الملف</th>
+        <th scope="col">فصيلة الدم</th>
+        <th scope="col"> الهاتف</th>
+        <th scope="col"> اسم المستشفئ</th>
+        <th scope="col"> الحالة</th>
+        <th scope="col"> الاجراءات</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% for(var i = 0; i< data.length; i++) { %>
+          <tr>
+              <th scope="row"><%= (i+1) %></th>
+              <td><%= data[i].name%></td>
+              <td><%= data[i].file_number%></td>
+              <td><%= data[i].blood_type%></td>
+              <td><%= data[i].phone%></td>
+              <td><%= data[i].hospital_name%></td>
+              <td>
+                <% if(data[i].status == 'approve'){%>
+                  <span class="btn btn-success"><%= data[i].status%></span>
+                <%}%>
+                <% if(data[i].status == 'cancel'){%>
+                  <span class="btn btn-danger"><%= data[i].status%></span>
+                <%}%>
+                <% if(data[i].status == 'pending'){%>
+                  <span class="btn btn-warning"><%= data[i].status%></span>
+                <%}%>
+              </td>
+              <td>
+                <% if(data[i].status == 'pending'){%>
+                  <a href="/getDonors/approve/<%=data[i].id%>" onclick="return alert('Are You sure?')"><i class="bi bi-pencil-square"></i></a>
+                <%}%>
+              </td>
+          </tr>
+      <% } %>
+
+    </tbody>
+  </table>
+</div>
+
+<%- include('./layouts/footer.ejs') %>

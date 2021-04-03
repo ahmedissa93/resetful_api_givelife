@@ -63,6 +63,7 @@ router.post('/store_hospital', function(req, res, next) {
     password: md5(req.body.password) ,
     user_name: req.body.user_name,
     name: req.body.name,
+    name_en: req.body.name_en,
     email: req.body.email,
     phone: req.body.phone,
   });

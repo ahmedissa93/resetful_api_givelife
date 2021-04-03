@@ -76,7 +76,7 @@ Order.remove = (id, result) => {
   });
 };
 Order.findByAllId = (id, result) => {
-  sql.query("SELECT users.id , corona_orders.id as order_id ,name , age , phone , national_id , status  FROM corona_orders join users on users.id = corona_orders.user_id WHERE corona_orders.hospital_id = ?", id, (err, res) => {
+  sql.query("SELECT users.id , corona_orders.id as order_id ,name , age , phone , national_id , status ,corona_orders.date , corona_orders.longitude , corona_orders.latitude  FROM corona_orders join users on users.id = corona_orders.user_id WHERE corona_orders.hospital_id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -94,7 +94,7 @@ Order.findByAllId = (id, result) => {
   });
 };
 Order.findByUserId = (id, result) => {
-  sql.query("SELECT users.id , corona_orders.id as order_id ,name , age , phone , national_id , status  FROM corona_orders join users on users.id = corona_orders.user_id WHERE corona_orders.user_id = ?", id, (err, res) => {
+  sql.query("SELECT users.id , corona_orders.id as order_id ,name , age , phone , national_id , status ,corona_orders.date FROM corona_orders join users on users.id = corona_orders.user_id WHERE corona_orders.user_id = ?", id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
