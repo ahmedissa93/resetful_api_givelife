@@ -18,7 +18,7 @@
         <th scope="col"> رقم الهوية</th>
         <th scope="col"> العمر</th>
         <th scope="col">حالة الطلب</th>
-        <th scope="col">حالة الطلب</th>
+        <th scope="col"> الموقع</th>
         <th scope="col"> الاجراءات</th>
       </tr>
     </thead>
@@ -41,7 +41,7 @@
                 <%}%>
               </td>
               <td>
-                <div id="map"  class="map">
+                <div id="map<%= (i+1)%>"  class="map">
                 </div>
               </td>
               <td>
@@ -60,10 +60,18 @@
 <script>
 // var getData = JSON.parse(<%= data %>);
 // console.log(getData);
+var data = <%-JSON.stringify(data) %>;
 function initMap() {
-        const myLatLng = { lat: -25.363, lng: 131.044 };
-        const map = new google.maps.Map(document.getElementById("map"), {
-          zoom: 4,
+    for (var i = 0; i < data.length; i++) {
+        let id = i+1;
+        console.log(data[i].latitude);
+        console.log(data[i].longitude);
+        var longitude = parseFloat(data[i].longitude);
+        var latitude = parseFloat(data[i].latitude);
+        var myLatLng = { lat:latitude, lng:longitude };
+        // var myLatLng = { lat:24.79017347750948, lng:46.822896637022495 };
+        var map = new google.maps.Map(document.getElementById("map"+id), {
+          zoom: 10,
           center: myLatLng,
         });
         new google.maps.Marker({
@@ -71,7 +79,8 @@ function initMap() {
           map,
           title: "Hello World!",
         });
-      }
+    }
+}
 </script>
 <script
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnBBjq7WgxBQyvEbWy_FUp351mX9yP_ho&callback=initMap&libraries=&v=weekly"
