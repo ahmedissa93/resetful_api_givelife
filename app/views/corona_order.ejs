@@ -10,7 +10,7 @@
     طلبات كورونا
   </div>
   <% var test = data; %>
-  <table class="table">
+  <table class="table" id="example" style="width:100%">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -86,3 +86,8 @@ function initMap() {
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnBBjq7WgxBQyvEbWy_FUp351mX9yP_ho&callback=initMap&libraries=&v=weekly"
       async
 ></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#example').DataTable();
+} );
+</script>

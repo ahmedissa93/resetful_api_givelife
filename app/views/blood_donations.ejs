@@ -4,7 +4,7 @@
   <div class="card-header">
     Orders BLood
   </div>
-  <table class="table">
+  <table class="table" id="example3" style="width:100%">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -29,6 +29,7 @@
               <td><%= data[i].phone%></td>
               <td><%= data[i].date%></td>
               <td><%= data[i].time%></td>
+              <td></td>
           </tr>
       <% } %>
 
@@ -37,3 +38,8 @@
 </div>
 
 <%- include('./layouts/footer.ejs') %>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#example3').DataTable();
+} );
+</script>

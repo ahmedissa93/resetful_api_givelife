@@ -4,7 +4,7 @@
   <div class="card-header">
     Donors List
   </div>
-  <table class="table">
+  <table class="table" id="example2" style="width:100%">
     <thead>
       <tr>
         <th scope="col">#</th>
@@ -50,3 +50,8 @@
 </div>
 
 <%- include('./layouts/footer.ejs') %>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#example2').DataTable();
+} );
+</script>
