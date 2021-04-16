@@ -9,12 +9,13 @@ var router = express.Router()
 const app = express();
 
 app.use(session({
-    cookie: { maxAge: 60000 },
+    cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 },
     store: new session.MemoryStore,
     saveUninitialized: true,
     resave: true,
     secret: 'secret'
 }))
+
 app.use(function (req, res, next) {
     res.locals.user = req.session.username;
     res.locals.isAdmin = req.session.isAdmin;
