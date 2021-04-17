@@ -6,4 +6,5 @@ module.exports = app => {
 
   //register
   app.post("/register", users.register);
+  app.post("/profile/update", users.update);
 };

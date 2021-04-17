@@ -43,4 +43,26 @@ User.register = (newUser, result) => {
     result(null, { id: res.insertId, ...newUser });
   });
 };
+User.updateById = (id, name , phone , age, result) => {
+  sql.query(
+    "UPDATE users SET name = ?  , phone = ? , age = ? WHERE id = ?",
+    [name , phone , age , id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found Customer with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated order status: ", { id: id });
+      result(null, { id: id});
+    }
+  );
+};
 module.exports = User;
