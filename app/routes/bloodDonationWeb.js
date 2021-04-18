@@ -20,5 +20,15 @@ router.get('/', function(req, res, next) {
   }
 
 });
+router.get('/approve/(:id)', function(req, res, next) {
+  let id = req.params.id;
+  BloodDonations.changeStatus(id,'approve',(err, data) => {
+    if (err)
+    res.redirect('/bloodDonations')
+    else
+     req.flash('success', "Approve Successfully");
+     res.redirect('/bloodDonations')
+  });
 
+});
 module.exports = router;

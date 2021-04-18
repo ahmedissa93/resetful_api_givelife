@@ -105,7 +105,7 @@ BloodDonations.statisticsTopDonation = result => {
 
 //get all order
 BloodDonations.findByAllId = (id,result) => {
-  sql.query("SELECT users.id , bloodـdonations.id as order_id ,bloodـdonations.blood_type,bloodـdonations.date,bloodـdonations.time ,name , age , phone , national_id  FROM bloodـdonations join users on users.id = bloodـdonations.user_id WHERE bloodـdonations.hospital_id = ? ",id, (err, res) => {
+  sql.query("SELECT users.id , bloodـdonations.id as order_id ,bloodـdonations.blood_type,bloodـdonations.date,bloodـdonations.time ,users.name , users.age , users.phone , users.national_id ,hospitals.name as hospital_name ,bloodـdonations.status  FROM bloodـdonations join users on users.id = bloodـdonations.user_id join hospitals on bloodـdonations.hospital_id = hospitals.id WHERE bloodـdonations.hospital_id = ? ",id, (err, res) => {
     if (err) {
       console.log("error: ", err);
       result(null, err);
@@ -115,5 +115,27 @@ BloodDonations.findByAllId = (id,result) => {
     console.log("BloodDonations: ", res);
     result(null, res);
   });
+};
+BloodDonations.changeStatus = (id, status, result) => {
+  sql.query(
+    "UPDATE bloodـdonations SET status = ? WHERE id = ?",
+    [status, id],
+    (err, res) => {
+      if (err) {
+        console.log("error: ", err);
+        result(null, err);
+        return;
+      }
+
+      if (res.affectedRows == 0) {
+        // not found Customer with the id
+        result({ kind: "not_found" }, null);
+        return;
+      }
+
+      console.log("updated order status: ", { id: id });
+      result(null, { id: id});
+    }
+  );
 };
 module.exports = BloodDonations;

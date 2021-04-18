@@ -1,6 +1,9 @@
 <%- include('./layouts/header.ejs') %>
 <%- include('./layouts/menu.ejs') %>
 <div class="card mt-5" style="width: 100%;">
+  <% if (messages.success) { %>
+      <div class="alert alert-success" role="alert"><%- messages.success %></div>
+  <% } %>
   <div class="card-header">
     Orders BLood
   </div>
@@ -9,12 +12,14 @@
       <tr>
         <th scope="col">#</th>
         <th scope="col">الاسم</th>
+        <th scope="col">المستشفئ</th>
         <th scope="col"> رقم الهوية</th>
         <th scope="col"> العمر</th>
         <th scope="col">فصيلة الدم</th>
         <th scope="col"> الهاتف</th>
         <th scope="col"> التاريخ</th>
         <th scope="col"> الوقت</th>
+        <th scope="col">الحالة</th>
         <th scope="col"> الاجراءات</th>
       </tr>
     </thead>
@@ -23,13 +28,29 @@
           <tr>
               <th scope="row"><%= (i+1) %></th>
               <td><%= data[i].name%></td>
+              <td><%= data[i].hospital_name%></td>
               <td><%= data[i].national_id%></td>
               <td><%= data[i].age%></td>
               <td><%= data[i].blood_type%></td>
               <td><%= data[i].phone%></td>
               <td><%= data[i].date%></td>
               <td><%= data[i].time%></td>
-              <td></td>
+              <td>
+                <% if(data[i].status == 'approve'){%>
+                  <span class="btn btn-success"><%= data[i].status%></span>
+                <%}%>
+                <% if(data[i].status == 'cancel'){%>
+                  <span class="btn btn-danger"><%= data[i].status%></span>
+                <%}%>
+                <% if(data[i].status == 'pending'){%>
+                  <span class="btn btn-warning"><%= data[i].status%></span>
+                <%}%>
+              </td>
+              <td>
+                <% if(data[i].status == 'pending'){%>
+                  <a href="/bloodDonations/approve/<%=data[i].order_id%>" onclick="return alert('Are You sure?')"><i class="bi bi-pencil-square"></i></a>
+                <%}%>
+              </td>
           </tr>
       <% } %>
 
