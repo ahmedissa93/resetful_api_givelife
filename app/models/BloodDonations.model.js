@@ -138,4 +138,22 @@ BloodDonations.changeStatus = (id, status, result) => {
     }
   );
 };
+BloodDonations.findByUserId = (id, result) => {
+  sql.query("SELECT users.id , bloodـdonations.id as order_id ,users.name , users.age , users.phone , users.national_id , bloodـdonations.status ,bloodـdonations.date FROM bloodـdonations join users on users.id = bloodـdonations.user_id WHERE bloodـdonations.status ='approve' and  bloodـdonations.user_id = ?", id, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(null, err);
+      return;
+    }
+
+    if (res.affectedRows == 0) {
+      // not found Customer with the id
+      result({ kind: "not_found" }, null);
+      return;
+    }
+
+    console.log("successful order with id: ", id);
+    result(null, res);
+  });
+};
 module.exports = BloodDonations;

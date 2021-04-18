@@ -41,7 +41,7 @@ exports.findAll = (req, res) => {
 };
 // Find a single Order with a orderId
 exports.findOne = (req, res) => {
-  BloodDonations.findById(req.params.orderId, (err, data) => {
+  BloodDonations.findByUserId(req.params.orderId, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -52,7 +52,7 @@ exports.findOne = (req, res) => {
           message: "Error retrieving Order with id " + req.params.orderId
         });
       }
-    } else res.send(data);
+    } else res.send({"data":data,"status":200});;
   });
 };
 // Update a Order Status identified by the orderId in the request
